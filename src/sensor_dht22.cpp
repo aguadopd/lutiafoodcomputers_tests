@@ -1,4 +1,4 @@
-/** 
+/**
  *  \file sensor_dht22.cpp
  *  \brief Sensor module for air temperature and humidity.
  *  \details See sensor_dht22.h for details.
@@ -11,7 +11,7 @@ SensorDht22::SensorDht22(int pin, String temperature_instruction_code, int tempe
   humidity_instruction_id_ = humidity_instruction_id;
   temperature_instruction_code_ = temperature_instruction_code;
   temperature_instruction_id_ = temperature_instruction_id;
-  
+
   count_ = COUNT;
   first_reading_ = true;
 }
@@ -60,17 +60,19 @@ void SensorDht22::getRawSensorData(void) {
   temperature_raw_ = 0;
   if (read()) {
     humidity_raw_ = data[0];
-    humidity_raw_ *= 256;
-    humidity_raw_ += data[1];
-    humidity_raw_ /= 10;
-    
-    temperature_raw_ = data[2] & 0x7F;
-    temperature_raw_ *= 256;
-    temperature_raw_ += data[3];
-    temperature_raw_ /= 10;
-    if (data[2] & 0x80) {
-      temperature_raw_ *= -1;
-    }    
+    // humidity_raw_ = data[0];
+    // humidity_raw_ *= 256;
+    // humidity_raw_ += data[1];
+    // humidity_raw_ /= 10;
+
+    temperature_raw_ = data[2];
+    // temperature_raw_ = data[2] & 0x7F;
+    // temperature_raw_ *= 256;
+    // temperature_raw_ += data[3];
+    // temperature_raw_ /= 10;
+    // if (data[2] & 0x80) {
+    //   temperature_raw_ *= -1;
+    // }
   }
 }
 
@@ -106,7 +108,7 @@ boolean SensorDht22::read(void) {
   last_read_time_ = millis();
 
   data[0] = data[1] = data[2] = data[3] = data[4] = 0;
-  
+
   // now pull it low for ~20 milliseconds
   pinMode(pin_, OUTPUT);
   digitalWrite(pin_, LOW);
@@ -141,7 +143,7 @@ boolean SensorDht22::read(void) {
   }
 
   // check we read 40 bits and that the checksum matches
-  if ((j >= 40) && 
+  if ((j >= 40) &&
       (data[4] == ((data[0] + data[1] + data[2] + data[3]) & 0xFF)) ) {
     return true;
   }
@@ -165,4 +167,4 @@ String SensorDht22::floatToString( double val, unsigned int precision) {
   }
   str += int(frac);
   return str;
-} 
+}
