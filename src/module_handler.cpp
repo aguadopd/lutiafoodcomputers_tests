@@ -1,6 +1,6 @@
-/** 
+/**
  *  \file module_handler.cpp
- *  \brief Handles all module integration. 
+ *  \brief Handles all module integration.
  *  \details See module_handler.h for details.
  *  \author Jake Rye
  */
@@ -9,58 +9,58 @@
 // Include Module Libraries
 #include "communication.h"
 //#include "sensor_dfr0161_0300.h"
-#include "sensor_vernier_ph.h"
-#include "sensor_vernier_ec.h"
-#include "sensor_ds18b20.h"
-#include "sensor_tsl2561.h"
+//#include "sensor_vernier_ph.h"
+//#include "sensor_vernier_ec.h"
+//#include "sensor_ds18b20.h"
+//#include "sensor_tsl2561.h"
 #include "sensor_dht22.h"
-#include "sensor_gc0011.h"
-#include "actuator_relay.h"
-#include "sensor_contact_switch.h"
+//#include "sensor_gc0011.h"
+//#include "actuator_relay.h"
+//#include "sensor_contact_switch.h"
 
 
 // Declare Module Objects
 Communication communication;
-SensorTsl2561 sensor_tsl2561_light_intensity_default("SLIN", 1, "SLPA", 1);
+//SensorTsl2561 sensor_tsl2561_light_intensity_default("SLIN", 1, "SLPA", 1);
 //SensorDfr01610300 sensor_dfr01610300_water_ph_temperature_ec_default(A1, "SWPH", 1, 5, "SWTM", 1, A2, "SWEC", 1, 2, 22);
-SensorVernierPh sensor_venier_ph_default(A1, "SWPH", 1);
-SensorVernierEc sensor_vernier_ec_default(A2, "SWEC", 1);
-SensorDs18b20 sensor_ds18b20_water_temperature(5, "SWTM", 1);
+//SensorVernierPh sensor_venier_ph_default(A1, "SWPH", 1);
+//SensorVernierEc sensor_vernier_ec_default(A2, "SWEC", 1);
+//SensorDs18b20 sensor_ds18b20_water_temperature(5, "SWTM", 1);
 SensorDht22 sensor_dht22_air_temperature_humidity_default(A0, "SATM", 1, "SAHU", 1);
-SensorGc0011 sensor_gc0011_air_co2_temperature_humidity_default(12, 11, "SACO", 1, "SATM", 2, "SAHU", 2);
-SensorContactSwitch sensor_contact_switch_general_shell_open_default(4, "SGSO", 1);
-SensorContactSwitch sensor_contact_switch_general_window_open_default(3, "SGWO", 1);
-ActuatorRelay actuator_relay_air_heater_default(6, "AAHE", 1); // AC port 4
-ActuatorRelay actuator_relay_light_panel_default(8, "ALPN", 1); // AC port 2
-ActuatorRelay actuator_relay_air_humidifier_default(9, "AAHU", 1); // AC port 1
-ActuatorRelay actuator_relay_air_vent_default(14, "AAVE", 1);
-ActuatorRelay actuator_relay_air_circulation_default(15, "AACR", 1);
-ActuatorRelay actuator_relay_light_chamber_illumination_default(53, "ALPN", 2); 
-ActuatorRelay actuator_relay_light_motherboard_illumination_default(52, "ALMI", 1);
+//SensorGc0011 sensor_gc0011_air_co2_temperature_humidity_default(12, 11, "SACO", 1, "SATM", 2, "SAHU", 2);
+//SensorContactSwitch sensor_contact_switch_general_shell_open_default(4, "SGSO", 1);
+//SensorContactSwitch sensor_contact_switch_general_window_open_default(3, "SGWO", 1);
+//ActuatorRelay actuator_relay_air_heater_default(6, "AAHE", 1); // AC port 4
+//ActuatorRelay actuator_relay_light_panel_default(8, "ALPN", 1); // AC port 2
+//ActuatorRelay actuator_relay_air_humidifier_default(9, "AAHU", 1); // AC port 1
+//ActuatorRelay actuator_relay_air_vent_default(14, "AAVE", 1);
+//ActuatorRelay actuator_relay_air_circulation_default(15, "AACR", 1);
+//ActuatorRelay actuator_relay_light_chamber_illumination_default(53, "ALPN", 2);
+//ActuatorRelay actuator_relay_light_motherboard_illumination_default(52, "ALMI", 1);
 
-void initializeModules(void) { 
+void initializeModules(void) {
   communication.begin();
   //sensor_dfr01610300_water_ph_temperature_ec_default.begin();
-  sensor_venier_ph_default.begin();
-  sensor_vernier_ec_default.begin();
-  sensor_ds18b20_water_temperature.begin();
-  sensor_tsl2561_light_intensity_default.begin();
+  //sensor_venier_ph_default.begin();
+  //sensor_vernier_ec_default.begin();
+  //sensor_ds18b20_water_temperature.begin();
+  //sensor_tsl2561_light_intensity_default.begin();
   sensor_dht22_air_temperature_humidity_default.begin();
-  sensor_gc0011_air_co2_temperature_humidity_default.begin();
-  sensor_contact_switch_general_shell_open_default.begin();
-  sensor_contact_switch_general_window_open_default.begin();
-  actuator_relay_air_heater_default.begin();
-  actuator_relay_air_humidifier_default.begin();
-  actuator_relay_air_vent_default.begin();
-  actuator_relay_air_circulation_default.begin();
-  actuator_relay_light_panel_default.begin();
-  actuator_relay_light_chamber_illumination_default.begin();
-  actuator_relay_light_motherboard_illumination_default.begin();
+  //sensor_gc0011_air_co2_temperature_humidity_default.begin();
+  //sensor_contact_switch_general_shell_open_default.begin();
+  //sensor_contact_switch_general_window_open_default.begin();
+  //actuator_relay_air_heater_default.begin();
+  //actuator_relay_air_humidifier_default.begin();
+  //actuator_relay_air_vent_default.begin();
+  //actuator_relay_air_circulation_default.begin();
+  //actuator_relay_light_panel_default.begin();
+  //actuator_relay_light_chamber_illumination_default.begin();
+  //actuator_relay_light_motherboard_illumination_default.begin();
 
   // Set Default States
-  actuator_relay_air_circulation_default.set("AACR", 1, "1");
-  actuator_relay_light_motherboard_illumination_default.set("ALMI", 1, "1");
-  actuator_relay_air_vent_default.set("AAVE", 1, "1");
+  //actuator_relay_air_circulation_default.set("AACR", 1, "1");
+  //actuator_relay_light_motherboard_illumination_default.set("ALMI", 1, "1");
+  //actuator_relay_air_vent_default.set("AAVE", 1, "1");
 }
 
 void updateIncomingMessage(void) {
@@ -83,21 +83,21 @@ void updateStreamMessage(void) {
 
   // Get Stream Message
   //stream_message += sensor_dfr01610300_water_ph_temperature_ec_default.get();
-  stream_message += sensor_venier_ph_default.get();
-  stream_message += sensor_vernier_ec_default.get();
-  stream_message += sensor_ds18b20_water_temperature.get();
-  stream_message += sensor_tsl2561_light_intensity_default.get();
+  //stream_message += sensor_venier_ph_default.get();
+  //stream_message += sensor_vernier_ec_default.get();
+  //stream_message += sensor_ds18b20_water_temperature.get();
+  //stream_message += sensor_tsl2561_light_intensity_default.get();
   stream_message += sensor_dht22_air_temperature_humidity_default.get(); // does not work on 1.0
-  stream_message += sensor_gc0011_air_co2_temperature_humidity_default.get();
-  stream_message += sensor_contact_switch_general_shell_open_default.get();
-  stream_message += sensor_contact_switch_general_window_open_default.get();
-  stream_message += actuator_relay_air_heater_default.get();
-  stream_message += actuator_relay_air_humidifier_default.get();
-  stream_message += actuator_relay_air_vent_default.get();
-  stream_message += actuator_relay_air_circulation_default.get();
-  stream_message += actuator_relay_light_panel_default.get();
-  stream_message += actuator_relay_light_chamber_illumination_default.get();
-  stream_message += actuator_relay_light_motherboard_illumination_default.get();
+  //stream_message += sensor_gc0011_air_co2_temperature_humidity_default.get();
+  //stream_message += sensor_contact_switch_general_shell_open_default.get();
+  //stream_message += sensor_contact_switch_general_window_open_default.get();
+  //stream_message += actuator_relay_air_heater_default.get();
+  //stream_message += actuator_relay_air_humidifier_default.get();
+  //stream_message += actuator_relay_air_vent_default.get();
+  //stream_message += actuator_relay_air_circulation_default.get();
+  //stream_message += actuator_relay_light_panel_default.get();
+  //stream_message += actuator_relay_light_chamber_illumination_default.get();
+  //stream_message += actuator_relay_light_motherboard_illumination_default.get();
 
   // Return Stream Message
   stream_message += "\"GEND\":0";
@@ -115,21 +115,21 @@ String handleIncomingMessage(void) {
   // Pass Parsed Message To All Objects and Update Return Message if Applicable
   if (instruction.valid) {
     //return_message += sensor_dfr01610300_water_ph_temperature_ec_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_venier_ph_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_vernier_ec_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_ds18b20_water_temperature.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_tsl2561_light_intensity_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += sensor_venier_ph_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += sensor_vernier_ec_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += sensor_ds18b20_water_temperature.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += sensor_tsl2561_light_intensity_default.set(instruction.code, instruction.id, instruction.parameter);
     return_message += sensor_dht22_air_temperature_humidity_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_gc0011_air_co2_temperature_humidity_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_contact_switch_general_shell_open_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_contact_switch_general_window_open_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += actuator_relay_air_heater_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += actuator_relay_air_humidifier_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += actuator_relay_air_vent_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += actuator_relay_air_circulation_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += actuator_relay_light_panel_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += actuator_relay_light_chamber_illumination_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += actuator_relay_light_motherboard_illumination_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += sensor_gc0011_air_co2_temperature_humidity_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += sensor_contact_switch_general_shell_open_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += sensor_contact_switch_general_window_open_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += actuator_relay_air_heater_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += actuator_relay_air_humidifier_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += actuator_relay_air_vent_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += actuator_relay_air_circulation_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += actuator_relay_light_panel_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += actuator_relay_light_chamber_illumination_default.set(instruction.code, instruction.id, instruction.parameter);
+    //return_message += actuator_relay_light_motherboard_illumination_default.set(instruction.code, instruction.id, instruction.parameter);
   }
   return return_message;
 }
@@ -156,4 +156,3 @@ Instruction parseIncomingMessage(String message) {
   // Return Instruction Data
   return instruction;
 }
-
