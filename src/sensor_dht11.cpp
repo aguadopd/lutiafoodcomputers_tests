@@ -1,11 +1,11 @@
 /**
- *  \file sensor_dht22.cpp
+ *  \file sensor_dht11.cpp
  *  \brief Sensor module for air temperature and humidity.
- *  \details See sensor_dht22.h for details.
+ *  \details See sensor_dht11.h for details.
  */
-#include "sensor_dht22.h"
+#include "sensor_dht11.h"
 
-SensorDht22::SensorDht22(int pin, String temperature_instruction_code, int temperature_instruction_id, String humidity_instruction_code, int humidity_instruction_id){
+SensorDht11::SensorDht11(int pin, String temperature_instruction_code, int temperature_instruction_id, String humidity_instruction_code, int humidity_instruction_id){
   pin_ = pin;
   humidity_instruction_code_ = humidity_instruction_code;
   humidity_instruction_id_ = humidity_instruction_id;
@@ -16,13 +16,13 @@ SensorDht22::SensorDht22(int pin, String temperature_instruction_code, int tempe
   first_reading_ = true;
 }
 
-void SensorDht22::begin(void) {
+void SensorDht11::begin(void) {
   pinMode(pin_, INPUT);
   digitalWrite(pin_, HIGH);
   last_read_time_ = 0;
 }
 
-String SensorDht22::get(void) {
+String SensorDht11::get(void) {
   // Get Sensor Data
   getSensorData();
 
@@ -51,49 +51,37 @@ String SensorDht22::get(void) {
   return message;
 }
 
-String SensorDht22::set(String instruction_code, int instruction_id, String parameter) {
+String SensorDht11::set(String instruction_code, int instruction_id, String parameter) {
   return "";
 }
 
-void SensorDht22::getRawSensorData(void) {
+void SensorDht11::getRawSensorData(void) {
   humidity_raw_ = 0;
   temperature_raw_ = 0;
   if (read()) {
     humidity_raw_ = data[0];
-    // humidity_raw_ = data[0];
-    // humidity_raw_ *= 256;
-    // humidity_raw_ += data[1];
-    // humidity_raw_ /= 10;
-
     temperature_raw_ = data[2];
-    // temperature_raw_ = data[2] & 0x7F;
-    // temperature_raw_ *= 256;
-    // temperature_raw_ += data[3];
-    // temperature_raw_ /= 10;
-    // if (data[2] & 0x80) {
-    //   temperature_raw_ *= -1;
-    // }
   }
 }
 
-void SensorDht22::getSensorData(void) {
+void SensorDht11::getSensorData(void) {
   getRawSensorData();
   filterSensorData();
 }
 
-void SensorDht22::filterSensorData(void) {
+void SensorDht11::filterSensorData(void) {
   humidity = humidity_raw_;
   temperature = temperature_raw_;
 }
 
-boolean SensorDht22::read(void) {
+boolean SensorDht11::read(void) {
   uint8_t last_state = HIGH;
   uint8_t counter = 0;
   uint8_t j = 0, i;
   unsigned long current_time;
 
   digitalWrite(pin_, HIGH);
-  delay(2); // old delay time was 250
+  delay(2); // old delay time was 250 // Why this? Copied from dht22 library...
 
   current_time = millis();
   if (current_time < last_read_time_) {
@@ -151,7 +139,7 @@ boolean SensorDht22::read(void) {
 }
 
 
-String SensorDht22::floatToString( double val, unsigned int precision) {
+String SensorDht11::floatToString( double val, unsigned int precision) {
 // prints val with number of decimal places determine by precision
 // NOTE: precision is 1 followed by the number of zeros for the desired number of decimial places
 // example: printDouble( 3.1415, 100); // prints 3.14 (two decimal places)

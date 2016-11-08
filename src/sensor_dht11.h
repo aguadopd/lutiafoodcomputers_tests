@@ -1,15 +1,15 @@
-/** 
- *  \file sensor_dht22.h
+/**
+ *  \file sensor_dht11.h
  *  \brief Sensor module for air temperature and humidity.
  */
 
-// Library based off: DHT library from Seeed Studio
-// Library found at: https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor
-// Component found at: http://www.seeedstudio.com/depot/grove-temperaturehumidity-sensor-pro-p-838.html?cPath=144_147
-// Modified by: Jake Rye
+// Library based off: DHT 22/21 library from Seeed Studio and DHT library from Adafruit
+// Libraries found at: https://github.com/adafruit/DHT-sensor-library/ and https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor
+// Component found at: https://www.adafruit.com/product/386
+// Modified by: Pablo Aguado, based on Jack Rye's library for DHT22  
 
-#ifndef SensorDht22_H
-#define SensorDht22_H
+#ifndef SensorDht11_H
+#define SensorDht11_H
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -31,13 +31,13 @@
 // how many timing transitions we need to keep track of. 2 * number bits + extra
 #define MAXTIMINGS 85
 
-/** 
+/**
  *  \brief Sensor module for air temperature and humidity.
  */
-class SensorDht22 : SensorActuatorModule {
+class SensorDht11 : SensorActuatorModule {
   public:
     // Public Functions
-    SensorDht22(int pin, String temperature_instruction_code, int temperature_instruction_id, String humidity_instruction_code, int humidity_instruction_id);
+    SensorDht11(int pin, String temperature_instruction_code, int temperature_instruction_id, String humidity_instruction_code, int humidity_instruction_id);
     void begin(void);
     String get(void);
     String set(String instruction_code, int instruction_id, String parameter);
@@ -45,7 +45,7 @@ class SensorDht22 : SensorActuatorModule {
     // Public Variables
     float humidity;
     float temperature;
-    
+
   private:
     // Private Functions
     void getSensorData(void);
@@ -53,7 +53,7 @@ class SensorDht22 : SensorActuatorModule {
     void getRawSensorData(void);
     void filterSensorData(void);
     String floatToString( double val, unsigned int precision);
-    
+
     // Private Variables
     int pin_;
     String humidity_instruction_code_;
@@ -69,4 +69,4 @@ class SensorDht22 : SensorActuatorModule {
     float temperature_raw_;
 };
 
-#endif // SensorDht22_H_
+#endif // SensorDht11_H_

@@ -13,7 +13,7 @@
 //#include "sensor_vernier_ec.h"
 //#include "sensor_ds18b20.h"
 //#include "sensor_tsl2561.h"
-#include "sensor_dht22.h"
+#include "sensor_dht11.h"
 //#include "sensor_gc0011.h"
 //#include "actuator_relay.h"
 //#include "sensor_contact_switch.h"
@@ -26,7 +26,7 @@ Communication communication;
 //SensorVernierPh sensor_venier_ph_default(A1, "SWPH", 1);
 //SensorVernierEc sensor_vernier_ec_default(A2, "SWEC", 1);
 //SensorDs18b20 sensor_ds18b20_water_temperature(5, "SWTM", 1);
-SensorDht22 sensor_dht22_air_temperature_humidity_default(A0, "SATM", 1, "SAHU", 1);
+SensorDht11 sensor_dht11_air_temperature_humidity_default(A0, "SATM", 1, "SAHU", 1);
 //SensorGc0011 sensor_gc0011_air_co2_temperature_humidity_default(12, 11, "SACO", 1, "SATM", 2, "SAHU", 2);
 //SensorContactSwitch sensor_contact_switch_general_shell_open_default(4, "SGSO", 1);
 //SensorContactSwitch sensor_contact_switch_general_window_open_default(3, "SGWO", 1);
@@ -45,7 +45,7 @@ void initializeModules(void) {
   //sensor_vernier_ec_default.begin();
   //sensor_ds18b20_water_temperature.begin();
   //sensor_tsl2561_light_intensity_default.begin();
-  sensor_dht22_air_temperature_humidity_default.begin();
+  sensor_dht11_air_temperature_humidity_default.begin();
   //sensor_gc0011_air_co2_temperature_humidity_default.begin();
   //sensor_contact_switch_general_shell_open_default.begin();
   //sensor_contact_switch_general_window_open_default.begin();
@@ -87,7 +87,7 @@ void updateStreamMessage(void) {
   //stream_message += sensor_vernier_ec_default.get();
   //stream_message += sensor_ds18b20_water_temperature.get();
   //stream_message += sensor_tsl2561_light_intensity_default.get();
-  stream_message += sensor_dht22_air_temperature_humidity_default.get(); // does not work on 1.0
+  stream_message += sensor_dht11_air_temperature_humidity_default.get(); // does not work on 1.0
   //stream_message += sensor_gc0011_air_co2_temperature_humidity_default.get();
   //stream_message += sensor_contact_switch_general_shell_open_default.get();
   //stream_message += sensor_contact_switch_general_window_open_default.get();
@@ -119,7 +119,7 @@ String handleIncomingMessage(void) {
     //return_message += sensor_vernier_ec_default.set(instruction.code, instruction.id, instruction.parameter);
     //return_message += sensor_ds18b20_water_temperature.set(instruction.code, instruction.id, instruction.parameter);
     //return_message += sensor_tsl2561_light_intensity_default.set(instruction.code, instruction.id, instruction.parameter);
-    return_message += sensor_dht22_air_temperature_humidity_default.set(instruction.code, instruction.id, instruction.parameter);
+    return_message += sensor_dht11_air_temperature_humidity_default.set(instruction.code, instruction.id, instruction.parameter);
     //return_message += sensor_gc0011_air_co2_temperature_humidity_default.set(instruction.code, instruction.id, instruction.parameter);
     //return_message += sensor_contact_switch_general_shell_open_default.set(instruction.code, instruction.id, instruction.parameter);
     //return_message += sensor_contact_switch_general_window_open_default.set(instruction.code, instruction.id, instruction.parameter);
